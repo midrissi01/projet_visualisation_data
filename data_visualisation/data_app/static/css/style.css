@@ -1,0 +1,12 @@
+#cards1,
+#cards2 {
+  justify-content: center;
+  margin-top: 20px;
+}
+.container-fluid {
+  background-color: white;
+}
+.navbar-brand > img {
+  height: 60px;
+  width: 70px;
+}
