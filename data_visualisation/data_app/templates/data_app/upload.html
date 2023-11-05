@@ -30,8 +30,8 @@
     </nav>
     <div class="container">
       <div class="col-4">
-        <div class="card">
-          <!-- <form action="" method="get">
+        <!-- <div class="card">
+           <form action="" method="get">
             <div class="input-group mb-3">
               <input type="file" class="form-control" id="inputGroupFile02" />
               <label class="input-group-text" for="inputGroupFile02"
@@ -41,18 +41,19 @@
             <button class="btn btn-primary" type="submit">Traiter</button>
             <i class="fa-duotone fa-file-export"></i>
           </form> -->
-          <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="card">
-                <input type="file" name="csv_file" accept=".csv">
-                <label for="selected_line">Select Line:</label>
-                <input type="number" name="selected_line">
-                <label for="selected_column">Select Column:</label>
-                <input type="text" name="selected_column">
-                <button type="submit">Upload and Visualize</button>
-            </div>card
-           
-        </form>
+          <div class="card">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+
+              <input
+                type="file"
+                class="form-control"
+                name="csv_file"
+                accept=".csv"
+              />
+              <button type="submit">Traiter</button>
+            </form>
+          </div>
         </div>
         <!-- <div class="card" id="card_dropdowns">
           <form action="" method="get">
@@ -73,7 +74,7 @@
         </div> -->
       </div>
       <div class="col-8">
-        <img src="data:image/png;base64,{{ plot_data }}" alt="Bar Plot">
+        <img src="data:image/png;base64,{{ plot_data }}" alt="Bar Plot" />
       </div>
     </div>
   </body>
