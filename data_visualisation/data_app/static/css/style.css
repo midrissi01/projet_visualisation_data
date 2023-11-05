@@ -3,6 +3,11 @@
   justify-content: center;
   margin-top: 20px;
 }
+.card{
+  height: 300px;
+  width: 18rem;
+  
+}
 .container-fluid {
   background-color: white;
 }
@@ -10,3 +15,11 @@
   height: 60px;
   width: 70px;
 }
+.card__image{
+  width: 100%;
+}
+.card__image1{
+  width: 100%;
+  
+}
+
