@@ -55,10 +55,10 @@
               class="form-select"
               aria-label="Default select example"
             >
-              <option selected>line</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <option selected disabled>Column</option>
+              {% for col in columns %}
+              <option value="{{ col }}">{{ col }}</option>
+              {% endfor %}
             </select>
             <button class="btn btn-primary" type="submit" href="/result">
               Visualiser
