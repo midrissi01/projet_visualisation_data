@@ -9,7 +9,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <link href="../../static/css/page1.css" rel="stylesheet" />
+    <link href="../../static/css/upload.css" rel="stylesheet" />
     <link rel="stylesheet" href="" />
     <title>Page 1</title>
   </head>
@@ -29,8 +29,9 @@
       </div>
     </nav>
     <div class="container">
-      <div class="col-4">
-        <!-- <div class="card">
+      <div class="row">
+        <div class="col-6">
+          <!-- <div class="card">
            <form action="" method="get">
             <div class="input-group mb-3">
               <input type="file" class="form-control" id="inputGroupFile02" />
@@ -44,16 +45,46 @@
           <div class="card">
             <form method="post" enctype="multipart/form-data">
               {% csrf_token %}
-
               <input
                 type="file"
                 class="form-control"
                 name="csv_file"
                 accept=".csv"
               />
-              <button type="submit">Traiter</button>
+              <button type="submit" href="/data/result">Traiter</button>
             </form>
           </div>
+          {% if columns %}
+          <div class="card">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                name="select1"
+              >
+                <option selected disabled>Column</option>
+                {% for col in columns %}
+                <option value="{{ col }}">{{ col }}</option>
+                {% endfor %}
+              </select>
+              <select
+                id="select2"
+                class="form-select"
+                aria-label="Default select example"
+                name="select2"
+              >
+                <option selected disabled>Column</option>
+                {% for col in columns %}
+                <option value="{{ col }}">{{ col }}</option>
+                {% endfor %}
+              </select>
+              <button class="btn btn-primary" type="submit" href="/result">
+                Visualiser
+              </button>
+            </form>
+          </div>
+          {% endif %}
         </div>
         <!-- <div class="card" id="card_dropdowns">
           <form action="" method="get">
@@ -72,9 +103,10 @@
             <button type="submit" class="btn btn-primary">done</button>
           </form>
         </div> -->
-      </div>
-      <div class="col-8">
-        <img src="data:image/png;base64,{{ plot_data }}" alt="Bar Plot" />
+
+        <div class="col-6">
+          <img src="data:image/png;base64,{{ plot_data }}" alt="Bar Plot" />
+        </div>
       </div>
     </div>
   </body>
