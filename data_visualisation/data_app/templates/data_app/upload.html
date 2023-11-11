@@ -14,10 +14,11 @@
 
   {% if columns %}
 
-  <form class="form__selects" method="post" enctype="multipart/form-data">
+  <form class="form__selects" method="post" action="{% url 'data_app_traiter' %}" enctype="multipart/form-data">
     {% csrf_token %}
     <p class="form__paragraph">2- choose the colums data :</p>
     <select
+      id="select1"
       class="form-select"
       aria-label="Default select example"
       name="select1"
@@ -38,7 +39,7 @@
       <option value="{{ col }}">{{ col }}</option>
       {% endfor %}
     </select>
-    <button class="btn btn-primary" type="submit" href="/result">
+    <button class="btn btn-primary" type="submit" href="{% url 'data_app_traiter' %}">
       Visualiser
     </button>
   </form>

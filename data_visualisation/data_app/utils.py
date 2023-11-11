@@ -14,16 +14,29 @@ def get_graph():
     buffer.close()
     return graph
 
-def get_plot(df,a,b):
+def get_lineplot(df,a,b):
     sns.set()
     plt.switch_backend('AGG')
     plt.figure(figsize=(7,5))
     plt.title('test')
     sns.lineplot(x= a, y= b, data=df, marker='o',
-    color='b', label='Value')
+    color='b')
     plt.xticks(rotation=45)
     plt.xlabel(a)
     plt.ylabel(b)
+    plt.tight_layout()
+    graph = get_graph()
+    return graph
+
+def get_barplot(x, y, data):
+    sns.set()
+    plt.switch_backend('AGG')
+    plt.figure(figsize=(5,3))
+    plt.title('test')
+    sns.barplot(x=x , y=y, data=data)
+    plt.xticks(rotation=45)
+    plt.xlabel(x)
+    plt.ylabel(y)
     plt.tight_layout()
     graph = get_graph()
     return graph
