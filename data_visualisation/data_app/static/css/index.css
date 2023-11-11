@@ -33,6 +33,10 @@
   border: 2px solid #025679;
   padding: 20px;
   background-color: white;
+  transition: 0.2s all;
+}
+.card__item:hover {
+  transform: scale(1.1);
 }
 
 .card__link {
