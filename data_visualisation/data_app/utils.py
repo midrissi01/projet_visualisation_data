@@ -17,7 +17,7 @@ def get_graph():
 def get_plot(df,a,b):
     sns.set()
     plt.switch_backend('AGG')
-    plt.figure(figsize=(10,6))
+    plt.figure(figsize=(7,5))
     plt.title('test')
     sns.lineplot(x= a, y= b, data=df, marker='o',
     color='b', label='Value')

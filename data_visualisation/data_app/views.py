@@ -9,17 +9,28 @@ import seaborn as sns
 import numpy as np
 from .utils import get_plot
 
-penguins = sns.load_dataset('penguins')
-penguins.head()
 def index(request):
-    return render("data_app/index.html")
+    return render(request,"data_app/index.html")
+
+
 def upload(request):
+    # Créer une dataframe
+    data = {'Date': ['2023-01-01', '2023-01-02', '2023-01-03',
+    '2023-01-04', '2023-01-05'],
+    'Value': [10, 15, 13, 18, 12]}
+    df = pd.DataFrame(data)
+    df['Date'] = pd.to_datetime(df['Date'])
+
+    graph = get_plot(df,'Date','Value')
+
+
     if request.method == 'POST':
         # Get the uploaded file from the request
         csv_file = request.FILES['csv_file']
 
         if csv_file:
             # Read the CSV file using Pandas
+            print(type(csv_file))
             cols=[]
             df = pd.read_csv(csv_file)
             for col in df.columns:
@@ -27,7 +38,8 @@ def upload(request):
             print(cols)
             context={
                 'columns' : cols,
-                'csv_file' : csv_file
+                'csv_file' : csv_file,
+                'graph': graph
             }
             return render(request, 'data_app/upload.html', context)
         

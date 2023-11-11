@@ -1,113 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <link href="../../static/css/upload.css" rel="stylesheet" />
-    <link rel="stylesheet" href="" />
-    <title>Page 1</title>
-  </head>
-  <body>
-    <nav class="navbar bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img
-            src="../../static/assets/logo.png"
-            alt="Logo"
-            width="30"
-            height="24"
-            class="d-inline-block align-text-top"
-          />
-        </a>
-        <p>Unleashing the Power of Data Visualization</p>
-      </div>
-    </nav>
-    <div class="container">
-      <div class="row">
-        <div class="col-6">
-          <!-- <div class="card">
-           <form action="" method="get">
-            <div class="input-group mb-3">
-              <input type="file" class="form-control" id="inputGroupFile02" />
-              <label class="input-group-text" for="inputGroupFile02"
-                >charger</label
-              >
-            </div>
-            <button class="btn btn-primary" type="submit">Traiter</button>
-            <i class="fa-duotone fa-file-export"></i>
-          </form> -->
-          <div class="card">
-            <form method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              <input
-                type="file"
-                class="form-control"
-                name="csv_file"
-                accept=".csv"
-              />
-              <button type="submit" href="/data/result">Traiter</button>
-            </form>
-          </div>
-          {% if columns %}
-          <div class="card">
-            <form method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              <select
-                class="form-select"
-                aria-label="Default select example"
-                name="select1"
-              >
-                <option selected disabled>Column</option>
-                {% for col in columns %}
-                <option value="{{ col }}">{{ col }}</option>
-                {% endfor %}
-              </select>
-              <select
-                id="select2"
-                class="form-select"
-                aria-label="Default select example"
-                name="select2"
-              >
-                <option selected disabled>Column</option>
-                {% for col in columns %}
-                <option value="{{ col }}">{{ col }}</option>
-                {% endfor %}
-              </select>
-              <button class="btn btn-primary" type="submit" href="/result">
-                Visualiser
-              </button>
-            </form>
-          </div>
-          {% endif %}
-        </div>
-        <!-- <div class="card" id="card_dropdowns">
-          <form action="" method="get">
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Column</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-            <select id="select2" class="form-select" aria-label="Default select example">
-              <option selected>line</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-            <button type="submit" class="btn btn-primary">done</button>
-          </form>
-        </div> -->
+{% extends '../base/base.html' %} {% load static %} {% block style %}
+<link href="{% static 'css/upload.css' %}" rel="stylesheet" />
+<script src="{% static 'js/upload.js' %}" defer></script>
+{% endblock style %} {% block content %}
+<div class="upload__container">
+  <form class="form__upload" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p class="form__paragraph">1- choosing the concerned file :</p>
+    <input type="file" id="csv_file" name="csv_file" accept=".csv" />
+    <button class="btn btn-primary mt-2" type="submit" href="/data/result">
+      Traiter
+    </button>
+  </form>
 
-        <div class="col-6">
-          <img src="data:image/png;base64,{{ plot_data }}" alt="Bar Plot" />
-        </div>
-      </div>
-    </div>
-  </body>
-</html>
+  {% if columns %}
+
+  <form class="form__selects" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p class="form__paragraph">2- choose the colums data :</p>
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      name="select1"
+    >
+      <option selected disabled>Column 1</option>
+      {% for col in columns %}
+      <option value="{{ col }}">{{ col }}</option>
+      {% endfor %}
+    </select>
+    <select
+      id="select2"
+      class="form-select"
+      aria-label="Default select example"
+      name="select2"
+    >
+      <option selected disabled>Column 2</option>
+      {% for col in columns %}
+      <option value="{{ col }}">{{ col }}</option>
+      {% endfor %}
+    </select>
+    <button class="btn btn-primary" type="submit" href="/result">
+      Visualiser
+    </button>
+  </form>
+
+  {% endif %}
+  <div class="image__container">
+    {% if graph %}
+    <p>3- result :</p>
+    <img src="data:image/png;base64, {{graph|safe}}" alt="chart" />
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}
