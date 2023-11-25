@@ -15,6 +15,10 @@
   margin-bottom: 40px;
 }
 
+#search::selection {
+  width: 400px;
+}
+
 .home__cards {
   width: 100%;
 }

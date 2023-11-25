@@ -1,6 +1,7 @@
 {% extends "../base/base.html" %} {% load static %} {% block style %}
 <link rel="stylesheet" href="{% static 'css/index.css' %}" />
 {% endblock style %} {% block content %}
+
 <div class="home__container">
   <p>Let's start by choosing wich graphic you want to use :</p>
   <div class="home__search">
@@ -9,7 +10,7 @@
   <div class="home__cards">
     <ul class="card__list">
       <li class="card__item">
-        <a href="{% url 'data_app_upload' %}" class="card__link">
+        <a href="{% url 'barplot_upload' %}" class="card__link">
           <div class="graph__card">
             <img
               class="card__image"
@@ -23,29 +24,29 @@
         </a>
       </li>
       <li class="card__item">
-        <a href="/data/upload" class="card__link">
+        <a href="{% url 'lineplot_upload' %}" class="card__link">
           <div class="graph__card">
             <img
               class="card__image"
-              src="../../static/assets/barplot.PNG"
-              alt=""
+              src="../../static/assets/lineplot.png"
+              alt="lineplot"
             />
             <div class="card-body">
-              <h5 class="card-title">Barplot</h5>
+              <h5 class="card-title">Lineplot</h5>
             </div>
           </div>
         </a>
       </li>
       <li class="card__item">
-        <a href="/data/upload" class="card__link">
+        <a href="{% url 'scatterplot_upload' %}" class="card__link">
           <div class="graph__card">
             <img
               class="card__image"
-              src="../../static/assets/barplot.PNG"
+              src="../../static/assets/scatterplot.png"
               alt=""
             />
             <div class="card-body">
-              <h5 class="card-title">Barplot</h5>
+              <h5 class="card-title">Scatterplot</h5>
             </div>
           </div>
         </a>
