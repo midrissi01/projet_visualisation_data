@@ -79,24 +79,34 @@ def lineplot_upload(request):
    
     if request.method == 'POST':
         csv_file = request.FILES['csv_file']
-        print(type(csv_file))
-        cols=[]
+        file_type = csv_file.name.split('.')[-1].lower()  # Get the file extension
+
         
-        df = pd.read_csv(csv_file)
+        if file_type == 'csv':
+            df = pd.read_csv(csv_file)
+        elif file_type in ['xls', 'xlsx']:
+            # Convert Excel to CSV
+            df = pd.read_excel(csv_file)
+            csv_buffer = io.StringIO()
+            df.to_csv(csv_buffer, index=False)
+            csv_file = ContentFile(csv_buffer.getvalue().encode('utf-8'))  # Encode the CSV data to bytes
+            csv_file = SimpleUploadedFile('converted_file.csv', csv_file.read())
+        else:
+            return HttpResponse("File type not supported. Please upload a CSV or Excel file.")
+
         # Serialize the DataFrame to CSV as a string
         df_csv = df.to_csv(index=False)
         # Store the CSV string in the session
         request.session['df'] = df_csv
         
-        for col in df.columns:
-            cols.append(col)
-        print(cols)        
-        context={
-            'columns' : cols,
-            'csv_file' : csv_file,
+        cols = list(df.columns)
+        
+        context = {
+            'columns': cols,
+            'csv_file': csv_file,
         }
         return render(request, 'data_app/lineplot.html', context)
-    
+
     # Handle GET requests
     return render(request, 'data_app/lineplot.html')
 
@@ -117,26 +127,35 @@ def lineplot_result(request):
 
 def scatterplot_upload(request):
    
-    if request.method == 'POST':
+    if  request.method == 'POST':
         csv_file = request.FILES['csv_file']
-        print(type(csv_file))
-        cols=[]
-        
-        df = pd.read_csv(csv_file)
+        file_type = csv_file.name.split('.')[-1].lower()  # Get the file extension
+        if file_type == 'csv':
+            df = pd.read_csv(csv_file)
+
+        elif file_type in ['xls', 'xlsx']:
+            # Convert Excel to CSV
+            df = pd.read_excel(csv_file)
+            csv_buffer = io.StringIO()
+            df.to_csv(csv_buffer, index=False)
+            csv_file = ContentFile(csv_buffer.getvalue().encode('utf-8'))  # Encode the CSV data to bytes
+            csv_file = SimpleUploadedFile('converted_file.csv', csv_file.read())
+        else:
+            return HttpResponse("File type not supported. Please upload a CSV or Excel file.")
+
         # Serialize the DataFrame to CSV as a string
         df_csv = df.to_csv(index=False)
         # Store the CSV string in the session
         request.session['df'] = df_csv
         
-        for col in df.columns:
-            cols.append(col)
-        print(cols)        
-        context={
-            'columns' : cols,
-            'csv_file' : csv_file,
+        cols = list(df.columns)
+        
+        context = {
+            'columns': cols,
+            'csv_file': csv_file,
         }
         return render(request, 'data_app/scatterplot.html', context)
-    
+
     # Handle GET requests
     return render(request, 'data_app/scatterplot.html')
 
