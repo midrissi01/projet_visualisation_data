@@ -13,6 +13,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.files.base import ContentFile
 
 
+
  # Créer une dataframe
     # data = {'Date': ['2023-01-01', '2023-01-02', '2023-01-03',
     # '2023-01-04', '2023-01-05'],
@@ -117,7 +118,6 @@ def lineplot_result(request):
     if request.method == 'POST':
         col1= str(request.POST['select1'])
         col2= str(request.POST['select2'])
-        #graph = utils.get_lineplot(df, col1, col2)
         graph = utils.get_interactive_lineplot(df, col1, col2)
 
     context={
@@ -174,4 +174,53 @@ def scatterplot_result(request):
         }
     return render(request, 'data_app/scatterplot.html',context)
 
-   
+
+
+def piechart_upload(request):
+    if request.method == 'POST':
+        csv_file = request.FILES['csv_file']
+        file_type = csv_file.name.split('.')[-1].lower()  # Get the file extension
+        if file_type == 'csv':
+            df = pd.read_csv(csv_file)
+        elif file_type in ['xls', 'xlsx']:
+            # Convert Excel to CSV
+            df = pd.read_excel(csv_file)
+            csv_buffer = io.StringIO()
+            df.to_csv(csv_buffer, index=False)
+            csv_file = ContentFile(csv_buffer.getvalue().encode('utf-8'))  # Encode the CSV data to bytes
+            csv_file = SimpleUploadedFile('converted_file.csv', csv_file.read())
+        else:
+            return HttpResponse("File type not supported. Please upload a CSV or Excel file.")
+
+        # Serialize the DataFrame to CSV as a string
+        df_csv = df.to_csv(index=False)
+        # Store the CSV string in the session
+        request.session['df'] = df_csv
+
+        cols = list(df.columns)
+
+        context = {
+            'columns': df.columns.tolist(),
+            'csv_file': csv_file,
+            'data_frame': df,
+        }
+        return render(request, 'data_app/piechart.html', context)
+
+    # Handle GET requests
+    return render(request, 'data_app/piechart.html')
+
+
+def piechart_result(request):
+    df = request.session.get('df')
+    df = pd.read_csv(io.StringIO(df))
+
+
+    if request.method == 'POST':
+        col1 = str(request.POST['select1'])
+       
+        graph = utils.get_piechart(df, col1)  
+
+    context = {
+        'graph': graph,
+    }
+    return render(request, 'data_app/piechart.html', context)

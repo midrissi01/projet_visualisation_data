@@ -3,6 +3,7 @@ import plotly.express as px
 import base64
 from io import BytesIO
 import seaborn as sns
+import plotly.graph_objects as go
 
 
 # def get_graph():
@@ -26,6 +27,15 @@ def get_graph():
     buffer.close()
     return graph
 
+def get_piechart(df, column_name):
+    value_counts = df[column_name].value_counts()
+    labels = value_counts.index.tolist()
+    values = value_counts.values.tolist()
+    fig = px.pie(names=labels, values=values, title='Pie Chart')
+    graph = fig.to_html(full_html=False)
+    return graph
+
+
 def get_interactive_lineplot(df, a, b):
     fig = px.line(df, x=a, y=b, markers=True)
     fig.update_layout(
@@ -34,6 +44,7 @@ def get_interactive_lineplot(df, a, b):
         yaxis_title=b,
         xaxis=dict(tickangle=45),
     )
+    
     
     graph = fig.to_html(full_html=False)
     return graph
@@ -101,6 +112,4 @@ def get_scatterplot(x,y,data):
     plt.tight_layout()
     graph = get_graph()
     return graph
-
-
 

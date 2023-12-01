@@ -11,6 +11,9 @@ urlpatterns = [
     path('scatterplot/upload', views.scatterplot_upload, name='scatterplot_upload'),
     path('scatterplot/result', views.scatterplot_result, name='scatterplot_result'),
     
+    path('piechart/upload', views.piechart_upload, name='piechart_upload'),
+    path('piechart/result', views.piechart_result, name='piechart_result'),
+    
 
 
     

@@ -5,13 +5,13 @@
 <div class="upload__container">
   <form
     class="form__upload"
-    action="{% url 'scatterplot_upload' %}"
+    action="{% url 'piechart_upload' %}"
     method="post"
     enctype="multipart/form-data"
   >
     {% csrf_token %}
-    <p class="form__paragraph">1- choosing the concerned file :</p>
-    <input type="file" id="csv_file" name="csv_file" accept=".csv , .xls, .xlsx" />
+    <p class="form__paragraph">1- choosing the concerned file csv or excel  :</p>
+    <input type="file" id="csv_file" name="csv_file" accept=".csv, .xls, .xlsx" />
     <button class="btn btn-primary mt-2" type="submit">Traiter</button>
   </form>
 
@@ -20,7 +20,7 @@
   <form
     class="form__selects"
     method="post"
-    action="{% url 'scatterplot_result' %}"
+    action="{% url 'piechart_result' %}"
     enctype="multipart/form-data"
   >
     {% csrf_token %}
@@ -31,22 +31,12 @@
       aria-label="Default select example"
       name="select1"
     >
-      <option selected disabled>Column 1</option>
+      <option selected disabled>Categorie</option>
       {% for col in columns %}
       <option value="{{ col }}">{{ col }}</option>
       {% endfor %}
     </select>
-    <select
-      id="select2"
-      class="form-select"
-      aria-label="Default select example"
-      name="select2"
-    >
-      <option selected disabled>Column 2</option>
-      {% for col in columns %}
-      <option value="{{ col }}">{{ col }}</option>
-      {% endfor %}
-    </select>
+ 
     <button class="btn btn-primary" type="submit">Visualiser</button>
   </form>
 
@@ -54,7 +44,9 @@
   <div class="image__container">
     {% if graph %}
     <p>3- result :</p>
-    {{graph|safe}} {% endif %}
+     <!-- <img src="data:image/png;base64, {{graph|safe}}" alt="chart" />  -->
+    {{graph|safe}}
+  {% endif %}
   </div>
 </div>
 {% endblock content %}
