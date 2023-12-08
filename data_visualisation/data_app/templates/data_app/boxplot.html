@@ -49,8 +49,8 @@
   <div class="image__container">
     {% if graph %}
     <p>3- result :</p>
-    <img src="data:image/png;base64, {{graph|safe}}" alt="chart" />
-    <!-- {{graph|safe}} {% endif %} -->
+    <!-- <img src="data:image/png;base64, {{graph|safe}}" alt="chart" /> -->
+    {{graph|safe}} {% endif %}
   </div>
 </div>
 {% endblock content %}

@@ -50,25 +50,33 @@ def get_histogram(df, column_name):
     
     return html_string
 
-def get_boxplot(df, column_name):
-    plt.figure(figsize=(10, 6))
-    sns.boxplot(x=column_name, data=df)
-    plt.title('Boxplot')
-    plt.xlabel(column_name)
-    plt.ylabel('Values')
+# def get_boxplot(df, column_name):
+#     plt.figure(figsize=(10, 6))
+#     sns.boxplot(x=column_name, data=df)
+#     plt.title('Boxplot')
+#     plt.xlabel(column_name)
+#     plt.ylabel('Values')
 
-    # Sauvegarder le graphique dans un buffer
-    buffer = BytesIO()
-    plt.savefig(buffer, format='png')
-    buffer.seek(0)
+#     # Sauvegarder le graphique dans un buffer
+#     buffer = BytesIO()
+#     plt.savefig(buffer, format='png')
+#     buffer.seek(0)
     
-    # Convertir l'image en format base64
-    image_png = base64.b64encode(buffer.read()).decode('utf-8')
+#     # Convertir l'image en format base64
+#     image_png = base64.b64encode(buffer.read()).decode('utf-8')
     
-    # Fermer le buffer
-    buffer.close()
+#     # Fermer le buffer
+#     buffer.close()
     
-    return image_png
+#     return image_png
+
+def get_boxplot(df, column_name):
+    fig = px.box(df, x=column_name, title='Boxplot', labels={column_name: 'Values'})
+    
+    # Convertir la figure en format HTML interactif
+    graph = fig.to_html(full_html=False)
+    
+    return graph
 
 
 def get_piechart(df, column_name):

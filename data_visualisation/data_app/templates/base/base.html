@@ -20,13 +20,14 @@
 
   <body>
     <header class="header">
-      <
-      <img
-        class="header__logo"
-        src="{% static '/assets/logo.png' %}"
-        alt="logo"
-        
-      />
+      <a href=" {% url 'data_app_index' %}">
+        <img
+          class="header__logo"
+          src="{% static '/assets/logo.png' %}"
+          alt="logo"
+        />
+      </a>
+
       <h1 class="header__title">Unleashing the Power of Data Visualization</h1>
     </header>
 
