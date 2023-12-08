@@ -51,7 +51,7 @@
           </div>
         </a>
       </li>
-     
+
       <li class="card__item">
         <a href="{% url 'piechart_upload' %}" class="card__link">
           <div class="graph__card">
@@ -67,15 +67,71 @@
         </a>
       </li>
       <li class="card__item">
-        <a href="/data/upload" class="card__link">
+        <a href="{% url 'boxplot_upload' %}" class="card__link">
           <div class="graph__card">
             <img
               class="card__image"
-              src="../../static/assets/barplot.PNG"
+              src="../../static/assets/boxplot.PNG"
               alt=""
             />
             <div class="card-body">
-              <h5 class="card-title">Barplot</h5>
+              <h5 class="card-title">Boxplot</h5>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li class="card__item">
+        <a href="{% url 'histogram_upload' %}" class="card__link">
+          <div class="graph__card">
+            <img
+              class="card__image"
+              src="../../static/assets/histogram.PNG"
+              alt=""
+            />
+            <div class="card-body">
+              <h5 class="card-title">Histogram</h5>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li class="card__item">
+        <a href="{% url 'kdeplot_upload' %}" class="card__link">
+          <div class="graph__card">
+            <img
+              class="card__image"
+              src="../../static/assets/kdeplot.PNG"
+              alt=""
+            />
+            <div class="card-body">
+              <h5 class="card-title">Kde plot</h5>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li class="card__item">
+        <a href="{% url 'heatmap_upload' %}" class="card__link">
+          <div class="graph__card">
+            <img
+              class="card__image"
+              src="../../static/assets/heatmap.PNG"
+              alt=""
+            />
+            <div class="card-body">
+              <h5 class="card-title">Heatmap</h5>
+            </div>
+          </div>
+        </a>
+      </li>
+      <li class="card__item">
+        <a href="{% url 'violinplot_upload' %}" class="card__link">
+          <div class="graph__card">
+            <img
+              class="card__image"
+              src="../../static/assets/violinplot.PNG"
+              alt=""
+            />
+            <div class="card-body">
+              <h5 class="card-title">Violin plot</h5>
             </div>
           </div>
         </a>

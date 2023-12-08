@@ -6,16 +6,6 @@ import seaborn as sns
 import plotly.graph_objects as go
 
 
-# def get_graph():
-#     buffer = BytesIO()
-#     plt.savefig(buffer, format='png')
-#     buffer.seek(0)
-#     image_png = buffer.getvalue()
-#     graph = base64.b64encode(image_png)
-#     graph = graph.decode('utf-8')
-#     buffer.close()
-#     return graph
-
 
 def get_graph():
     buffer = BytesIO()
@@ -26,6 +16,60 @@ def get_graph():
     graph = graph.decode('utf-8')
     buffer.close()
     return graph
+
+
+
+
+def get_heatmap(df):
+    df=df.select_dtypes(include=['number'])
+    fig = px.imshow(df.corr(), x=df.columns, y=df.columns, title='Interactive Heatmap')
+    html_string = fig.to_html(full_html=False)
+    return html_string
+
+def get_violinplot(df, y_column):
+    fig = px.violin(df, y=y_column, title=f'Violin Plot for {y_column}')
+
+    # Save the plot as an HTML string
+    html_string = fig.to_html(full_html=False)
+    
+    return html_string
+
+def get_kdeplot(df, column_name):
+    fig = px.density_contour(df, x=column_name, title='Interactive KDE Plot')
+    
+    # Save the plot as an HTML string
+    html_string = fig.to_html(full_html=False)
+    
+    return html_string
+
+
+def get_histogram(df, column_name):
+    fig = px.histogram(df, x=column_name, title='Interactive Histogram')
+    
+    html_string = fig.to_html(full_html=False)
+    
+    return html_string
+
+def get_boxplot(df, column_name):
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x=column_name, data=df)
+    plt.title('Boxplot')
+    plt.xlabel(column_name)
+    plt.ylabel('Values')
+
+    # Sauvegarder le graphique dans un buffer
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    
+    # Convertir l'image en format base64
+    image_png = base64.b64encode(buffer.read()).decode('utf-8')
+    
+    # Fermer le buffer
+    buffer.close()
+    
+    return image_png
+
 
 def get_piechart(df, column_name):
     value_counts = df[column_name].value_counts()

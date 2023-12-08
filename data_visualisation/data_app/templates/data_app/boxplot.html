@@ -1,0 +1,56 @@
+{% extends '../base/base.html' %} {% load static %} {% block style %}
+<link href="{% static 'css/upload.css' %}" rel="stylesheet" />
+<script src="{% static 'js/upload.js' %}" defer></script>
+{% endblock style %} {% block content %}
+<div class="upload__container">
+  <form
+    class="form__upload"
+    action="{% url 'boxplot_upload' %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %}
+    <p class="form__paragraph">1- choosing the concerned file csv or excel :</p>
+    <input
+      type="file"
+      id="csv_file"
+      name="csv_file"
+      accept=".csv, .xls, .xlsx"
+    />
+    <button class="btn btn-primary mt-2" type="submit">Traiter</button>
+  </form>
+
+  {% if columns %}
+
+  <form
+    class="form__selects"
+    method="post"
+    action="{% url 'boxplot_result' %}"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %}
+    <p class="form__paragraph">2- choose the colums data :</p>
+    <select
+      id="select1"
+      class="form-select"
+      aria-label="Default select example"
+      name="select1"
+    >
+      <option selected disabled>Column 1</option>
+      {% for col in columns %}
+      <option value="{{ col }}">{{ col }}</option>
+      {% endfor %}
+    </select>
+   
+    <button class="btn btn-primary" type="submit">Visualiser</button>
+  </form>
+
+  {% endif %}
+  <div class="image__container">
+    {% if graph %}
+    <p>3- result :</p>
+    <img src="data:image/png;base64, {{graph|safe}}" alt="chart" />
+    <!-- {{graph|safe}} {% endif %} -->
+  </div>
+</div>
+{% endblock content %}

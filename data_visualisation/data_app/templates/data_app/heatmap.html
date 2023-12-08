@@ -1,0 +1,38 @@
+
+{% extends '../base/base.html' %}
+{% load static %}
+
+{% block style %}
+<link href="{% static 'css/upload.css' %}" rel="stylesheet" />
+<script src="{% static 'js/upload.js' %}" defer></script>
+{% endblock style %}
+
+{% block content %}
+<div class="upload__container">
+  <!-- Form for uploading the CSV file -->
+  <form
+    class="form__upload"
+    action="{% url 'heatmap_upload' %}"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %}
+    <p class="form__paragraph">1- Choose the concerned file (CSV or Excel):</p>
+    <input
+      type="file"
+      id="csv_file"
+      name="csv_file"
+      accept=".csv, .xls, .xlsx"
+    />
+    <button class="btn btn-primary mt-2" type="submit">Process</button>
+  </form>
+
+  <!-- Display the Heatmap result -->
+  <div class="image__container">
+    {% if graph %}
+      <p>3- Result:</p>
+      {{ graph|safe }}
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}
