@@ -16,6 +16,8 @@
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     {% endblock %} {% block style %} {% endblock style %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   </head>
 
   <body>
@@ -29,6 +31,18 @@
       </a>
 
       <h1 class="header__title">Unleashing the Power of Data Visualization</h1>
+
+      <ul class="header_navbar">
+        <li class="nav_item">
+          <a class="nav_link" href="{% url 'data_app_index' %}">Graphics</a>
+        </li>
+        <li class="navbar-item">
+          <a class="nav_link" href="{% url 'df' %}">Dataframe</a>
+        </li>
+        <li class="navbar-item">
+          <a class="nav_link" href="{% url 'laws' %}">Probability laws</a>
+        </li>
+      </ul>
     </header>
 
     {% block content %} {% endblock content %} {% block footer %}

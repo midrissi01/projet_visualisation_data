@@ -99,3 +99,14 @@ input[type="file"]::after {
 .form__paragraph {
   align-self: self-start;
 }
+
+.scrollable-table {
+  width: 100%;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  overflow-y: auto; /* Enable vertical scrolling */
+  max-height: 400px; /* Adjust the max-height as needed */
+}
+.scrollable-table table {
+  width: auto; /* Set table width to auto */
+  min-width: 100%; /* Minimum table width */
+}

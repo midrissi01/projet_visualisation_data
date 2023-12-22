@@ -27,7 +27,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   flex-wrap: wrap;
   gap: 40px;
   list-style: none;
@@ -37,11 +37,10 @@
   border: 2px solid #025679;
   padding: 20px;
   background-color: white;
+  width: 200px;
   transition: 0.2s all;
-  height: 300px;
 }
 .graph__card {
-  height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
